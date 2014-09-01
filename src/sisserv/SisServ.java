@@ -43,15 +43,38 @@ public class SisServ {
 		in = new ObjectInputStream(tempClient.getInputStream());
 		System.out.println(tempClient.getInetAddress() + " is connected.");
 		System.out.println("Username confirmed : " + in.readObject().toString());
-		out.writeChars("conmade1");
 		
 		Socket tempClient2 = Serv.accept();
 		out2 = new ObjectOutputStream(tempClient2.getOutputStream());
 		in2 = new ObjectInputStream(tempClient2.getInputStream());
 		System.out.println(tempClient2.getInetAddress() + " is connected.");
 		System.out.println("Username confirmed : " + in2.readObject().toString());
-		out2.writeChars("conmade2");
 		
+		int no1 = Integer.parseInt(in.readObject().toString());
+		//System.out.println(no1);
+		
+		int no2 = Integer.parseInt(in2.readObject().toString());
+		//System.out.println(no2);
+		while(true){
+		    if (no1 == no2){
+			out.writeObject("DRAW");
+			out2.writeObject("DRAW");
+		    }
+		    else if ((no1 == 1 && no2 == 2) || (no1 == 2 && no2 == 3) || (no1 == 3 && no2 == 1)){
+			out.writeObject("LOSE");
+			out2.writeObject("WIN");
+		    }
+		    else if ((no1 == 2 && no2 == 1) || (no1 == 3 && no2 == 2) || (no1 == 1 && no2 == 3)){
+			out.writeObject("WIN");
+			out2.writeObject("LOSE");
+		    }
+		    else {
+			out.writeObject("fail");
+			out2.writeObject("fail");
+		    }
+		    
+		    out.flush(); out2.flush();
+		}
 		
 	    }
 	    

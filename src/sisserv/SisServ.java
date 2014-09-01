@@ -43,12 +43,14 @@ public class SisServ {
 		in = new ObjectInputStream(tempClient.getInputStream());
 		System.out.println(tempClient.getInetAddress() + " is connected.");
 		System.out.println("Username confirmed : " + in.readObject().toString());
+		out.writeChars("conmade1");
 		
 		Socket tempClient2 = Serv.accept();
 		out2 = new ObjectOutputStream(tempClient2.getOutputStream());
 		in2 = new ObjectInputStream(tempClient2.getInputStream());
 		System.out.println(tempClient2.getInetAddress() + " is connected.");
 		System.out.println("Username confirmed : " + in2.readObject().toString());
+		out2.writeChars("conmade2");
 		
 		
 	    }
